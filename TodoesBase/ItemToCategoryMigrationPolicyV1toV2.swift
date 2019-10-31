@@ -10,7 +10,7 @@ import Foundation
 import CoreData
 
 let errorDomain = "Migration"
-public class ItemToCategoryMigrationPolicyV1toV22: NSEntityMigrationPolicy {
+public class ItemToCategoryMigrationPolicyV1toV2: NSEntityMigrationPolicy {
     
     override public func createDestinationInstances(
         forSource sInstance: NSManagedObject,
@@ -25,6 +25,9 @@ public class ItemToCategoryMigrationPolicyV1toV22: NSEntityMigrationPolicy {
         let newAttachment = Category(
             entity: description!,
             insertInto: manager.destinationContext)
+        
+        newAttachment.setValue("no Category", forKey: "name")
+        newAttachment.setValue(NSSet(array: []), forKey: "items")
         
         // 2
         func traversePropertyMappings(block: (NSPropertyMapping, String) -> ()) throws {
@@ -61,10 +64,13 @@ public class ItemToCategoryMigrationPolicyV1toV22: NSEntityMigrationPolicy {
                                                         return
                 }
                 
-                newAttachment.setValue(destinationValue,
-                                       forKey: destinationName)
+               // sInstance.setValue(newAttachment, forKey: "category")
+                
             }
         }
+        
+        newAttachment.items?.adding(sInstance)
+        sInstance.setValue(newAttachment, forKey: "category")
         
         
         // 5
