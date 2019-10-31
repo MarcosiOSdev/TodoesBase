@@ -59,7 +59,7 @@ class CoreDataStack {
         
         //Apenas para Migration
         description.shouldMigrateStoreAutomatically = true
-        description.shouldInferMappingModelAutomatically = false
+        //description.shouldInferMappingModelAutomatically = false
         
         return description
     }()
