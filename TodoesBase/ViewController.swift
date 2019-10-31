@@ -14,7 +14,6 @@ class ViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     private let cellID = "cellReuse"
     
-    let stack = CoreDataStack.shared
     
     var items: [Item] = []
     
@@ -39,24 +38,19 @@ class ViewController: UIViewController {
         }
         
         alert.addAction(UIAlertAction(title: "Salvar", style: .default, handler: { (alert) in
-            
-            let item = Item(context: self.stack.managedContext)
-            item.name = textField.text
-            self.stack.saveContext()
-            self.loadDatas()
-            
+            let name = textField.text ?? ""
+            let newItem = Item(name: name, done: false)
+            self.loadDatas(newItem)
         }))
         alert.addAction(UIAlertAction(title: "Cancelar", style: .cancel))
         self.present(alert, animated: true)
     }
     
-    func loadDatas() {
-        do {
-            self.items = try stack.managedContext.fetch(Item.fetchRequest())
-            self.tableView.reloadData()
-        } catch {
-            print("Error on ViewDidLoad on Load of Items")
+    func loadDatas(_ item: Item? = nil) {
+        if let item = item {
+            self.items.append(item)
         }
+        self.tableView.reloadData()        
     }
     
 }
@@ -76,12 +70,11 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.performBatchUpdates({
-            let item = self.items[indexPath.row]
+            var item = self.items[indexPath.row]
             item.done = !item.done
-            stack.saveContext()
+            self.items[indexPath.row] = item
         })
         tableView.reloadRows(at: [indexPath], with: .left)
-        
     }
 }
 
