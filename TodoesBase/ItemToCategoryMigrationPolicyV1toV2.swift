@@ -12,15 +12,13 @@ import CoreData
 let errorDomain = "Migration"
 public class ItemToItemMigrationPolicyV1toV2: NSEntityMigrationPolicy {
     
-    var id: NSManagedObjectID?
+    var categoryId: NSManagedObjectID?
     
     override public func createDestinationInstances(
         forSource sInstance: NSManagedObject,
         in mapping: NSEntityMapping,
         manager: NSMigrationManager) throws {
-        
-        
-        
+     
         let description = NSEntityDescription.entity(
             forEntityName: "Item",
             in: manager.destinationContext)
@@ -35,11 +33,11 @@ public class ItemToItemMigrationPolicyV1toV2: NSEntityMigrationPolicy {
         
         newItem.name = sInstance.value(forKey: "name") as? String
         let numberBool = sInstance.value(forKey: "done") as? Int
-        newItem.done = (numberBool ?? 0) > 0
+        newItem.setValue((numberBool ?? 0) > 0, forKey: "done") 
  
         
         // IF ja existe o ID da Category então usa  o NSManagedObject
-        if let id = self.id,
+        if let id = self.categoryId,
             let category = try? manager.destinationContext.existingObject(with: id),
             let item =  try? manager.destinationContext.existingObject(with: newItem.objectID) {
             
@@ -56,7 +54,7 @@ public class ItemToItemMigrationPolicyV1toV2: NSEntityMigrationPolicy {
             newCategory.items = []
             newCategory.addToItems(newItem)
             newItem.category = newCategory
-            self.id = newCategory.objectID
+            self.categoryId = newCategory.objectID
         }
         
         
