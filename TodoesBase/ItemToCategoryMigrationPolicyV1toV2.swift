@@ -35,13 +35,16 @@ public class ItemToCategoryMigrationPolicyV1toV2: NSEntityMigrationPolicy {
             entity: descriptionCategory!,
             insertInto: manager.destinationContext)
         
-        newCategory.name = "No Category"
-        newCategory.items = []
+        if newCategory.name != nil {
+            newCategory.name = "No Category"
+            newCategory.items = []
+        }
+        
         
         newItem.category = newCategory
         newCategory.addToItems(newItem)
         
-        manager.associate(sourceInstance: sInstance, withDestinationInstance: newItem, for: mapping)
+        manager.associate(sourceInstance: sInstance, withDestinationInstance: newCategory, for: mapping)
         
         
     }
