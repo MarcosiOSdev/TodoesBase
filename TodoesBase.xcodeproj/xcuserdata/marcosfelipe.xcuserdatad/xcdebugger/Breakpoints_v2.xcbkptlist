@@ -10,29 +10,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TodoesBase/ItemToCategoryMigrationPolicyV1toV2.swift"
-            timestampString = "594181964.445644"
+            timestampString = "594183222.088606"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "77"
-            endingLineNumber = "77"
-            landmarkName = "createDestinationInstances(forSource:in:manager:)"
+            startingLineNumber = "52"
+            endingLineNumber = "52"
+            landmarkName = "createRelationships(forDestination:in:manager:)"
             landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "TodoesBase/ItemToCategoryMigrationPolicyV1toV2.swift"
-            timestampString = "594181964.4459749"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "37"
-            endingLineNumber = "37"
-            landmarkName = "traversePropertyMappings(block:)"
-            landmarkType = "9">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

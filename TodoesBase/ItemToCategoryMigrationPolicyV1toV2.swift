@@ -29,60 +29,27 @@ public class ItemToCategoryMigrationPolicyV1toV2: NSEntityMigrationPolicy {
         newAttachment.setValue("no Category", forKey: "name")
         newAttachment.setValue(NSSet(array: []), forKey: "items")
         
-        // 2
-        func traversePropertyMappings(block: (NSPropertyMapping, String) -> ()) throws {
-            if let attributeMappings = mapping.attributeMappings {
-                for propertyMapping in attributeMappings {
-                    if let destinationName = propertyMapping.name {
-                        block(propertyMapping, destinationName)
-                    } else {
-                        // 3
-                        let message =
-                        "Attribute destination not configured properly"
-                        let userInfo =
-                            [NSLocalizedFailureReasonErrorKey: message]
-                        throw NSError(domain: errorDomain,
-                                      code: 0, userInfo: userInfo)
-                    }
-                }
-            } else {
-                let message = "No Attribute Mappings found!"
-                let userInfo = [NSLocalizedFailureReasonErrorKey: message]
-                throw NSError(domain: errorDomain,
-                              code: 0, userInfo: userInfo)
+        if let attributeMappings = mapping.relationshipMappings {
+            for propertyMapping in attributeMappings {
+                newAttachment.items?.adding(sInstance)
+                sInstance.setValue(newAttachment, forKey: propertyMapping.name ?? "")
             }
+        } else {
+            let message = "No Attribute Mappings found!"
+            let userInfo = [NSLocalizedFailureReasonErrorKey: message]
+            throw NSError(domain: errorDomain,
+                          code: 0, userInfo: userInfo)
         }
         
-        // 4
-        try traversePropertyMappings {
-            propertyMapping, destinationName in
-            if let valueExpression = propertyMapping.valueExpression {
-                let context: NSMutableDictionary = ["source": sInstance]
-                guard let destinationValue =
-                    valueExpression.expressionValue(with: sInstance,
-                                                    context: context) else {
-                                                        return
-                }
-                
-               // sInstance.setValue(newAttachment, forKey: "category")
-                
-            }
-        }
-        
-        newAttachment.items?.adding(sInstance)
-        sInstance.setValue(newAttachment, forKey: "category")
-        
-        
-        // 5
-        if (sInstance as? Item) != nil {
-            newAttachment.setValue("No Category", forKey: "name")
-        }
         
         // 7
         manager.associate(sourceInstance: sInstance,
                           withDestinationInstance: newAttachment,
                           for: mapping)
     }
-    
+    public override func createRelationships(forDestination dInstance: NSManagedObject, in mapping: NSEntityMapping, manager: NSMigrationManager) throws {
+        
+        print("GOT HERE")
+    }
     
 }
