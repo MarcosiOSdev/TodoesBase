@@ -15,7 +15,11 @@ class ViewController: UIViewController {
     private let cellID = "cellReuse"
     
     let stack = CoreDataStack.shared
-    
+    var category: Category? {
+        didSet {
+            self.items = Array(category?.items ?? []) as! [Item]
+        }
+    }
     var items: [Item] = []
     
     override func viewDidLoad() {
@@ -23,7 +27,6 @@ class ViewController: UIViewController {
         searchBar.delegate = self
         tableView.dataSource = self
         tableView.delegate = self
-        loadDatas()
     }
     
     @IBAction func addItem(_ sender: UIBarButtonItem) {
@@ -42,21 +45,15 @@ class ViewController: UIViewController {
             
             let item = Item(context: self.stack.managedContext)
             item.name = textField.text
+            item.category = self.category
+            self.category?.addToItems(item)
             self.stack.saveContext()
-            self.loadDatas()
+            self.items.append(item)            
+            self.tableView.reloadData()
             
         }))
         alert.addAction(UIAlertAction(title: "Cancelar", style: .cancel))
         self.present(alert, animated: true)
-    }
-    
-    func loadDatas() {
-        do {
-            self.items = try stack.managedContext.fetch(Item.fetchRequest())
-            self.tableView.reloadData()
-        } catch {
-            print("Error on ViewDidLoad on Load of Items")
-        }
     }
     
 }

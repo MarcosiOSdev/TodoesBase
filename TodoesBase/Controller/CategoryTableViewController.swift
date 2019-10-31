@@ -15,8 +15,8 @@ class CategoryTableViewController: UITableViewController {
     var categories = [Category]()
     
     //MARK: - Lifecycle
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         loadDatas()
     }
 
@@ -64,6 +64,15 @@ class CategoryTableViewController: UITableViewController {
         }))
         
         self.present(alertController, animated: true)
+    }
+    
+    //MARK: - Segues
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "goToItems" {
+            guard let viewController = segue.destination as? ViewController else { return }
+            let category = categories[tableView.indexPathForSelectedRow!.row]
+            viewController.category = category
+        }
     }
 }
 
