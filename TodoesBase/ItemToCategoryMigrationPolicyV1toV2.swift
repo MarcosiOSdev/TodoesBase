@@ -12,7 +12,7 @@ import CoreData
 let errorDomain = "Migration"
 public class ItemToItemMigrationPolicyV1toV2: NSEntityMigrationPolicy {
     
-    let count = 1
+    var id: NSManagedObjectID?
     
     override public func createDestinationInstances(
         forSource sInstance: NSManagedObject,
@@ -33,23 +33,32 @@ public class ItemToItemMigrationPolicyV1toV2: NSEntityMigrationPolicy {
             forEntityName: "Category",
             in: manager.destinationContext)
         
-        let newCategory: Category
-        if let categories:[Category] = try manager.destinationContext.fetch(Category.fetchRequest()), categories.count > 0 {
-            newCategory = categories.first!
-        } else {
-            newCategory = Category(
-                entity: descriptionCategory!,
-                insertInto: manager.destinationContext)            
-        }
+        newItem.name = sInstance.value(forKey: "name") as? String
+        let numberBool = sInstance.value(forKey: "done") as? Int
+        newItem.done = (numberBool ?? 0) > 0
+ 
         
-        if newCategory.name == nil {
+        // IF ja existe o ID da Category então usa  o NSManagedObject
+        if let id = self.id,
+            let category = try? manager.destinationContext.existingObject(with: id),
+            let item =  try? manager.destinationContext.existingObject(with: newItem.objectID) {
+            
+            let items = category.value(forKey: "items") as? NSSet
+            items?.adding(item)
+            item.setValue(category, forKey: "category")
+            
+        } else { // não existe ID , então cria a primeira category
+            let newCategory = Category(
+                entity: descriptionCategory!,
+                insertInto: manager.destinationContext)
+            
             newCategory.name = "No Category"
             newCategory.items = []
+            newCategory.addToItems(newItem)
+            newItem.category = newCategory
+            self.id = newCategory.objectID
         }
-        newItem.name = sInstance.value(forKey: "name") as! String
-        //newItem.done = false
-        newItem.category = newCategory
-        newCategory.addToItems(newItem)
+        
         
         manager.associate(sourceInstance: sInstance,
                           withDestinationInstance: newItem,
