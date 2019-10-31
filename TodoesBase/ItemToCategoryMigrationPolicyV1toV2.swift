@@ -17,35 +17,33 @@ public class ItemToCategoryMigrationPolicyV1toV2: NSEntityMigrationPolicy {
         in mapping: NSEntityMapping,
         manager: NSMigrationManager) throws {
         
-        // 1
+        
+        
         let description = NSEntityDescription.entity(
-            forEntityName: "Category",
+            forEntityName: "Item",
             in: manager.destinationContext)
         
-        let newAttachment = Category(
+        let newItem = Item(
             entity: description!,
             insertInto: manager.destinationContext)
         
-        newAttachment.setValue("no Category", forKey: "name")
-        newAttachment.setValue(NSSet(array: []), forKey: "items")
+        let descriptionCategory = NSEntityDescription.entity(
+            forEntityName: "Category",
+            in: manager.destinationContext)
         
-        if let attributeMappings = mapping.relationshipMappings {
-            for propertyMapping in attributeMappings {
-                newAttachment.items?.adding(sInstance)
-                sInstance.setValue(newAttachment, forKey: propertyMapping.name ?? "")
-            }
-        } else {
-            let message = "No Attribute Mappings found!"
-            let userInfo = [NSLocalizedFailureReasonErrorKey: message]
-            throw NSError(domain: errorDomain,
-                          code: 0, userInfo: userInfo)
-        }
+        let newCategory = Category(
+            entity: descriptionCategory!,
+            insertInto: manager.destinationContext)
+        
+        newCategory.name = "No Category"
+        newCategory.items = []
+        
+        newItem.category = newCategory
+        newCategory.addToItems(newItem)
+        
+        manager.associate(sourceInstance: sInstance, withDestinationInstance: newItem, for: mapping)
         
         
-        // 7
-        manager.associate(sourceInstance: sInstance,
-                          withDestinationInstance: newAttachment,
-                          for: mapping)
     }
     public override func createRelationships(forDestination dInstance: NSManagedObject, in mapping: NSEntityMapping, manager: NSMigrationManager) throws {
         
