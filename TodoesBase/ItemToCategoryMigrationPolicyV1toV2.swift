@@ -10,7 +10,9 @@ import Foundation
 import CoreData
 
 let errorDomain = "Migration"
-public class ItemToCategoryMigrationPolicyV1toV2: NSEntityMigrationPolicy {
+public class ItemToItemMigrationPolicyV1toV2: NSEntityMigrationPolicy {
+    
+    let count = 1
     
     override public func createDestinationInstances(
         forSource sInstance: NSManagedObject,
@@ -31,20 +33,27 @@ public class ItemToCategoryMigrationPolicyV1toV2: NSEntityMigrationPolicy {
             forEntityName: "Category",
             in: manager.destinationContext)
         
-        let newCategory = Category(
-            entity: descriptionCategory!,
-            insertInto: manager.destinationContext)
+        let newCategory: Category
+        if let categories:[Category] = try manager.destinationContext.fetch(Category.fetchRequest()), categories.count > 0 {
+            newCategory = categories.first!
+        } else {
+            newCategory = Category(
+                entity: descriptionCategory!,
+                insertInto: manager.destinationContext)            
+        }
         
-        if newCategory.name != nil {
+        if newCategory.name == nil {
             newCategory.name = "No Category"
             newCategory.items = []
         }
-        
-        
+        newItem.name = sInstance.value(forKey: "name") as! String
+        //newItem.done = false
         newItem.category = newCategory
         newCategory.addToItems(newItem)
         
-        manager.associate(sourceInstance: sInstance, withDestinationInstance: newCategory, for: mapping)
+        manager.associate(sourceInstance: sInstance,
+                          withDestinationInstance: newItem,
+                          for: mapping)
         
         
     }

@@ -20,7 +20,7 @@
 		D8657805236A5E6D009F1CF9 /* Item+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8657801236A5E6D009F1CF9 /* Item+CoreDataClass.swift */; };
 		D8657806236A5E6D009F1CF9 /* Item+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8657802236A5E6D009F1CF9 /* Item+CoreDataProperties.swift */; };
 		D865780A236A6507009F1CF9 /* ItemToCategoryMigrationPolicyV1toV2.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8657809236A6507009F1CF9 /* ItemToCategoryMigrationPolicyV1toV2.swift */; };
-		D865781A236A7C18009F1CF9 /* TodoesBase_v1_to_v2.xcmappingmodel in Sources */ = {isa = PBXBuildFile; fileRef = D8657819236A7C18009F1CF9 /* TodoesBase_v1_to_v2.xcmappingmodel */; };
+		D865781C236A951A009F1CF9 /* TodoesBase_v1_to_v2.xcmappingmodel in Sources */ = {isa = PBXBuildFile; fileRef = D865781B236A951A009F1CF9 /* TodoesBase_v1_to_v2.xcmappingmodel */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,7 +52,7 @@
 		D8657801236A5E6D009F1CF9 /* Item+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Item+CoreDataClass.swift"; sourceTree = "<group>"; };
 		D8657802236A5E6D009F1CF9 /* Item+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Item+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		D8657809236A6507009F1CF9 /* ItemToCategoryMigrationPolicyV1toV2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemToCategoryMigrationPolicyV1toV2.swift; sourceTree = "<group>"; };
-		D8657819236A7C18009F1CF9 /* TodoesBase_v1_to_v2.xcmappingmodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcmappingmodel; path = TodoesBase_v1_to_v2.xcmappingmodel; sourceTree = "<group>"; };
+		D865781B236A951A009F1CF9 /* TodoesBase_v1_to_v2.xcmappingmodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcmappingmodel; path = TodoesBase_v1_to_v2.xcmappingmodel; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,7 +107,7 @@
 				D8559930236A0AC5009F7618 /* Info.plist */,
 				D8559928236A0AC1009F7618 /* TodoesBase.xcdatamodeld */,
 				D8657809236A6507009F1CF9 /* ItemToCategoryMigrationPolicyV1toV2.swift */,
-				D8657819236A7C18009F1CF9 /* TodoesBase_v1_to_v2.xcmappingmodel */,
+				D865781B236A951A009F1CF9 /* TodoesBase_v1_to_v2.xcmappingmodel */,
 			);
 			path = TodoesBase;
 			sourceTree = "<group>";
@@ -230,7 +230,7 @@
 				D8657806236A5E6D009F1CF9 /* Item+CoreDataProperties.swift in Sources */,
 				D8657805236A5E6D009F1CF9 /* Item+CoreDataClass.swift in Sources */,
 				D865780A236A6507009F1CF9 /* ItemToCategoryMigrationPolicyV1toV2.swift in Sources */,
-				D865781A236A7C18009F1CF9 /* TodoesBase_v1_to_v2.xcmappingmodel in Sources */,
+				D865781C236A951A009F1CF9 /* TodoesBase_v1_to_v2.xcmappingmodel in Sources */,
 				D8559945236A0AE3009F7618 /* CoreDataStack.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
