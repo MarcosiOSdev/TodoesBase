@@ -50,6 +50,7 @@ class CategoryTableViewController: UITableViewController {
         if editingStyle == .delete {
             let category = self.categories[indexPath.row]
             coreDataStack.managedContext.delete(category)
+            coreDataStack.saveContext()
             loadDatas()
         }
     }
