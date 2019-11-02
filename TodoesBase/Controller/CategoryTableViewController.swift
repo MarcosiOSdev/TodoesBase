@@ -42,6 +42,17 @@ class CategoryTableViewController: UITableViewController {
         self.performSegue(withIdentifier: "goToItems", sender: self)
     }
     
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            let category = self.categories[indexPath.row]
+            coreDataStack.managedContext.delete(category)
+            loadDatas()
+        }
+    }
     
     //MARK: - Event Actions
     @IBAction func addCategory(_ sender: UIBarButtonItem) {
@@ -74,7 +85,7 @@ class CategoryTableViewController: UITableViewController {
     //MARK: - Segues
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "goToItems" {
-            guard let viewController = segue.destination as? ViewController else { return }
+            guard let viewController = segue.destination as? ItemsViewController else { return }
             let category = categories[tableView.indexPathForSelectedRow!.row]
             viewController.category = category
             viewController.stack = self.coreDataStack

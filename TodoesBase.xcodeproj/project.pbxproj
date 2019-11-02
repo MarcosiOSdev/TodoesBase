@@ -10,7 +10,7 @@
 		28AB1DCA236D0DF200D685EA /* DataMigrationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28AB1DC9236D0DF200D685EA /* DataMigrationManager.swift */; };
 		28AB1DCD236D1BD100D685EA /* Category+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28AB1DCC236D1BD100D685EA /* Category+CoreDataProperties.swift */; };
 		D8559922236A0AC1009F7618 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8559921236A0AC1009F7618 /* AppDelegate.swift */; };
-		D8559924236A0AC1009F7618 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8559923236A0AC1009F7618 /* ViewController.swift */; };
+		D8559924236A0AC1009F7618 /* ItemsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8559923236A0AC1009F7618 /* ItemsViewController.swift */; };
 		D8559927236A0AC1009F7618 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D8559925236A0AC1009F7618 /* Main.storyboard */; };
 		D855992A236A0AC1009F7618 /* TodoesBase.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D8559928236A0AC1009F7618 /* TodoesBase.xcdatamodeld */; };
 		D855992C236A0AC5009F7618 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D855992B236A0AC5009F7618 /* Assets.xcassets */; };
@@ -42,7 +42,7 @@
 		28AB1DCC236D1BD100D685EA /* Category+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Category+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		D855991E236A0AC1009F7618 /* TodoesBase.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TodoesBase.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D8559921236A0AC1009F7618 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		D8559923236A0AC1009F7618 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		D8559923236A0AC1009F7618 /* ItemsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemsViewController.swift; sourceTree = "<group>"; };
 		D8559926236A0AC1009F7618 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		D8559929236A0AC1009F7618 /* TodoesBase.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TodoesBase.xcdatamodel; sourceTree = "<group>"; };
 		D855992B236A0AC5009F7618 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -166,7 +166,7 @@
 			isa = PBXGroup;
 			children = (
 				D8BB1436236B2AA1003F5D4A /* CategoryTableViewController.swift */,
-				D8559923236A0AC1009F7618 /* ViewController.swift */,
+				D8559923236A0AC1009F7618 /* ItemsViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -274,7 +274,7 @@
 			files = (
 				D8657804236A5E6D009F1CF9 /* Category+CoreDataProperties.swift in Sources */,
 				28AB1DCD236D1BD100D685EA /* Category+CoreDataProperties.swift in Sources */,
-				D8559924236A0AC1009F7618 /* ViewController.swift in Sources */,
+				D8559924236A0AC1009F7618 /* ItemsViewController.swift in Sources */,
 				D8657803236A5E6D009F1CF9 /* Category+CoreDataClass.swift in Sources */,
 				D8559922236A0AC1009F7618 /* AppDelegate.swift in Sources */,
 				28AB1DCA236D0DF200D685EA /* DataMigrationManager.swift in Sources */,
