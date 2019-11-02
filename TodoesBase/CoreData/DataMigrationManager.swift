@@ -37,7 +37,7 @@ class DataMigrationManager {
     
     func performMigration() {
         if !currentModel.isVersion3 {
-            fatalError("Can only handle migrations to version 4!")
+            fatalError("Can only handle migrations to version 3!")
         }
         if let storeModel = self.storeModel {
             if storeModel.isVersion1 {
@@ -45,7 +45,8 @@ class DataMigrationManager {
                 
                 migrateStoreAt(URL: storeURL,
                                fromModel: storeModel,
-                               toModel: destinationModel)
+                               toModel: destinationModel,
+                               mappingModel: mappingModel)
                 
                 performMigration()
             } else if storeModel.isVersion2 {
@@ -56,8 +57,7 @@ class DataMigrationManager {
                 
                 migrateStoreAt(URL: storeURL,
                                fromModel: storeModel,
-                               toModel: destinationModel,
-                               mappingModel: mappingModel)
+                               toModel: destinationModel)
                 
                 performMigration()
             }
