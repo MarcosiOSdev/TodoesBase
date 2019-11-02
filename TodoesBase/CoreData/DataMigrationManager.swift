@@ -40,7 +40,7 @@ class DataMigrationManager {
             fatalError("Can only handle migrations to version 3!")
         }
         if let storeModel = self.storeModel {
-            if storeModel.isVersion1 {
+            if storeModel.isVersion1 && storeModel.isVersion2 {
                 let destinationModel = NSManagedObjectModel.version2
                 //Mapping model in class: ItemToItemMigrationPolicyV1toV2
                 let mappingModel = NSMappingModel(from: nil,
@@ -52,14 +52,7 @@ class DataMigrationManager {
                                mappingModel: mappingModel)
                 
                 performMigration()
-            } else if storeModel.isVersion2 {
-                let destinationModel = NSManagedObjectModel.version3                
-                migrateStoreAt(URL: storeURL,
-                               fromModel: storeModel,
-                               toModel: destinationModel)
-                
-                performMigration()
-            }
+            } 
         }
     }
     
