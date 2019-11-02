@@ -11,7 +11,11 @@ import CoreData
 
 class CategoryTableViewController: UITableViewController {
 
-    var coreDataStack = CoreDataStack.shared
+    var coreDataStack: CoreDataStack = {
+        let manager = DataMigrationManager(modelNamed: "TodoesBase",
+                                          enableMigrations: true)
+        return manager.stack
+    }()
     var categories = [Category]()
     
     //MARK: - Lifecycle
@@ -59,6 +63,7 @@ class CategoryTableViewController: UITableViewController {
                                                     guard let selfStrong = self else { return }
                                                     let category = Category(context: selfStrong.coreDataStack.managedContext)
                                                     category.name = textField.text
+                                                    category.dateCreated = NSDate()
                                                     selfStrong.coreDataStack.saveContext()
                                                     selfStrong.loadDatas()
         }))
@@ -72,6 +77,7 @@ class CategoryTableViewController: UITableViewController {
             guard let viewController = segue.destination as? ViewController else { return }
             let category = categories[tableView.indexPathForSelectedRow!.row]
             viewController.category = category
+            viewController.stack = self.coreDataStack
         }
     }
 }

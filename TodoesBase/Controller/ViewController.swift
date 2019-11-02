@@ -14,7 +14,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     private let cellID = "cellReuse"
     
-    let stack = CoreDataStack.shared
+    var stack: CoreDataStack!
     var category: Category? {
         didSet {
             self.items = Array(category?.items ?? []) as! [Item]

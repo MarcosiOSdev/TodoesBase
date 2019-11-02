@@ -2,7 +2,7 @@
 //  Category+CoreDataProperties.swift
 //  TodoesBase
 //
-//  Created by Marcos Felipe Souza on 30/10/19.
+//  Created by Marcos Felipe Souza on 01/11/19.
 //  Copyright © 2019 Marcos Felipe Souza. All rights reserved.
 //
 //
@@ -18,6 +18,7 @@ extension Category {
     }
 
     @NSManaged public var name: String?
+    @NSManaged public var dateCreated: NSDate?
     @NSManaged public var items: NSSet?
 
 }

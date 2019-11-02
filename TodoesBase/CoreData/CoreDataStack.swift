@@ -25,11 +25,10 @@ import CoreData
 
 class CoreDataStack {
     
-    
-    static let shared = CoreDataStack()
-    
-    private let modelName: String =  "TodoesBase"
-    private init() {}
+    private let modelName: String
+    init(modelName: String = "TodoesBase") {
+        self.modelName = modelName
+    }
     
     lazy var managedContext: NSManagedObjectContext = self.storeContainer.viewContext
     var savingContext: NSManagedObjectContext {
