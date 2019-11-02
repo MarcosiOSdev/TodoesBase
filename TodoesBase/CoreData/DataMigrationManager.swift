@@ -53,9 +53,7 @@ class DataMigrationManager {
                 
                 performMigration()
             } else if storeModel.isVersion2 {
-                let destinationModel = NSManagedObjectModel.version3
-                
-                
+                let destinationModel = NSManagedObjectModel.version3                
                 migrateStoreAt(URL: storeURL,
                                fromModel: storeModel,
                                toModel: destinationModel)
