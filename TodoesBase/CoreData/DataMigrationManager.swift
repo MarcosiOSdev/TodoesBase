@@ -42,7 +42,10 @@ class DataMigrationManager {
         if let storeModel = self.storeModel {
             if storeModel.isVersion1 {
                 let destinationModel = NSManagedObjectModel.version2
-                
+                //Mapping model in class: ItemToItemMigrationPolicyV1toV2
+                let mappingModel = NSMappingModel(from: nil,
+                                                  forSourceModel: storeModel,
+                                                  destinationModel: destinationModel)
                 migrateStoreAt(URL: storeURL,
                                fromModel: storeModel,
                                toModel: destinationModel,
@@ -51,9 +54,7 @@ class DataMigrationManager {
                 performMigration()
             } else if storeModel.isVersion2 {
                 let destinationModel = NSManagedObjectModel.version3
-                let mappingModel = NSMappingModel(from: nil,
-                                                  forSourceModel: storeModel,
-                                                  destinationModel: destinationModel)
+                
                 
                 migrateStoreAt(URL: storeURL,
                                fromModel: storeModel,

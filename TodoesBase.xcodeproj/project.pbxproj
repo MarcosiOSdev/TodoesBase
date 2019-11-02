@@ -21,7 +21,7 @@
 		D8657804236A5E6D009F1CF9 /* Category+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8657800236A5E6D009F1CF9 /* Category+CoreDataProperties.swift */; };
 		D8657805236A5E6D009F1CF9 /* Item+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8657801236A5E6D009F1CF9 /* Item+CoreDataClass.swift */; };
 		D8657806236A5E6D009F1CF9 /* Item+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8657802236A5E6D009F1CF9 /* Item+CoreDataProperties.swift */; };
-		D865780A236A6507009F1CF9 /* ItemToCategoryMigrationPolicyV1toV2.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8657809236A6507009F1CF9 /* ItemToCategoryMigrationPolicyV1toV2.swift */; };
+		D865780A236A6507009F1CF9 /* ItemToItemMigrationPolicyV1toV2.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8657809236A6507009F1CF9 /* ItemToItemMigrationPolicyV1toV2.swift */; };
 		D865781C236A951A009F1CF9 /* TodoesBase_v1_to_v2.xcmappingmodel in Sources */ = {isa = PBXBuildFile; fileRef = D865781B236A951A009F1CF9 /* TodoesBase_v1_to_v2.xcmappingmodel */; };
 		D8BB1437236B2AA1003F5D4A /* CategoryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8BB1436236B2AA1003F5D4A /* CategoryTableViewController.swift */; };
 /* End PBXBuildFile section */
@@ -57,7 +57,7 @@
 		D8657800236A5E6D009F1CF9 /* Category+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Category+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		D8657801236A5E6D009F1CF9 /* Item+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Item+CoreDataClass.swift"; sourceTree = "<group>"; };
 		D8657802236A5E6D009F1CF9 /* Item+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Item+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		D8657809236A6507009F1CF9 /* ItemToCategoryMigrationPolicyV1toV2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemToCategoryMigrationPolicyV1toV2.swift; sourceTree = "<group>"; };
+		D8657809236A6507009F1CF9 /* ItemToItemMigrationPolicyV1toV2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemToItemMigrationPolicyV1toV2.swift; sourceTree = "<group>"; };
 		D865781B236A951A009F1CF9 /* TodoesBase_v1_to_v2.xcmappingmodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcmappingmodel; path = TodoesBase_v1_to_v2.xcmappingmodel; sourceTree = "<group>"; };
 		D8BB1436236B2AA1003F5D4A /* CategoryTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -125,7 +125,7 @@
 			children = (
 				D8559944236A0AE3009F7618 /* CoreDataStack.swift */,
 				D8559928236A0AC1009F7618 /* TodoesBase.xcdatamodeld */,
-				D8657809236A6507009F1CF9 /* ItemToCategoryMigrationPolicyV1toV2.swift */,
+				D8657809236A6507009F1CF9 /* ItemToItemMigrationPolicyV1toV2.swift */,
 				D865781B236A951A009F1CF9 /* TodoesBase_v1_to_v2.xcmappingmodel */,
 				28AB1DC9236D0DF200D685EA /* DataMigrationManager.swift */,
 			);
@@ -282,7 +282,7 @@
 				D855992A236A0AC1009F7618 /* TodoesBase.xcdatamodeld in Sources */,
 				D8657806236A5E6D009F1CF9 /* Item+CoreDataProperties.swift in Sources */,
 				D8657805236A5E6D009F1CF9 /* Item+CoreDataClass.swift in Sources */,
-				D865780A236A6507009F1CF9 /* ItemToCategoryMigrationPolicyV1toV2.swift in Sources */,
+				D865780A236A6507009F1CF9 /* ItemToItemMigrationPolicyV1toV2.swift in Sources */,
 				D865781C236A951A009F1CF9 /* TodoesBase_v1_to_v2.xcmappingmodel in Sources */,
 				D8559945236A0AE3009F7618 /* CoreDataStack.swift in Sources */,
 			);
