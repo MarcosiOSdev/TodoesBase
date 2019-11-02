@@ -62,11 +62,5 @@ public class ItemToItemMigrationPolicyV1toV2: NSEntityMigrationPolicy {
                           withDestinationInstance: newItem,
                           for: mapping)
         
-        
     }
-    public override func createRelationships(forDestination dInstance: NSManagedObject, in mapping: NSEntityMapping, manager: NSMigrationManager) throws {
-        
-        print("GOT HERE")
-    }
-    
 }
