@@ -176,7 +176,7 @@ class DataMigrationManager {
     
 }
 
-extension NSManagedObjectModel: Equatable {
+extension NSManagedObjectModel {
     
     //MARK: - Equatable method
     static func == (firstModel: NSManagedObjectModel,
