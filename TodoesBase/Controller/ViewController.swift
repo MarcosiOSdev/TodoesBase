@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreData
 
 class ViewController: UIViewController {
 
@@ -15,11 +16,7 @@ class ViewController: UIViewController {
     private let cellID = "cellReuse"
     
     let stack = CoreDataStack.shared
-    var category: Category? {
-        didSet {
-            self.items = Array(category?.items ?? []) as! [Item]
-        }
-    }
+    var category: Category?
     var items: [Item] = []
     
     override func viewDidLoad() {
@@ -27,6 +24,7 @@ class ViewController: UIViewController {
         searchBar.delegate = self
         tableView.dataSource = self
         tableView.delegate = self
+        loadDatas()
     }
     
     @IBAction func addItem(_ sender: UIBarButtonItem) {
@@ -55,7 +53,41 @@ class ViewController: UIViewController {
         alert.addAction(UIAlertAction(title: "Cancelar", style: .cancel))
         self.present(alert, animated: true)
     }
+}
+
+//MARK: - CoreData funcs
+extension ViewController {
+    func loadDatas(request: NSFetchRequest<Item>? = nil) {
+        do {
+            let itemRequest:NSFetchRequest = request ?? Item.fetchRequest()
+            let nameSort = NSSortDescriptor(key: "name", ascending: true)
+            let checkedSort = NSSortDescriptor(key: "done", ascending: false)
+            itemRequest.sortDescriptors = [checkedSort, nameSort]
+            
+            if let nameCategory = self.category?.name {
+                let predicateParent = NSPredicate(format: "category.name MATCHES %@", nameCategory)
+                if let predicate = itemRequest.predicate {
+                    let compound = NSCompoundPredicate(andPredicateWithSubpredicates: [predicateParent, predicate])
+                    itemRequest.predicate = compound
+                } else {
+                    itemRequest.predicate = predicateParent
+                }
+            }
+            
+            
+            self.items = try stack.managedContext.fetch(itemRequest)
+        } catch {
+            print("Error on ViewDidLoad on Load of Items")
+        }
+        self.tableView.reloadData()
+    }
     
+    func loadDatas(with name: String) {
+        let request: NSFetchRequest = Item.fetchRequest()
+        let predicateNamed = NSPredicate(format: "name CONTAINS[cd] %@", name)
+        request.predicate = predicateNamed
+        self.loadDatas(request: request)
+    }
 }
 
 extension ViewController: UITableViewDataSource, UITableViewDelegate {
@@ -77,11 +109,27 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
             item.done = !item.done
             stack.saveContext()
         })
-        tableView.reloadRows(at: [indexPath], with: .left)
-        
+        tableView.reloadRows(at: [indexPath], with: .right)        
     }
 }
 
 extension ViewController: UISearchBarDelegate {
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if searchBar.text?.count == 0 {
+            loadDatas()
+            DispatchQueue.main.async {
+                searchBar.resignFirstResponder()
+            }
+        } else if let name = searchBar.text {
+            loadDatas(with: name)
+        }
+        
+    }
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        if let name = searchBar.text {
+            loadDatas(with: name)
+        }
+    }
     
 }
