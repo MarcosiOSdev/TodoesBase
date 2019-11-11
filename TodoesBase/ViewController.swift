@@ -15,7 +15,13 @@ class ViewController: UIViewController {
     private let cellID = "cellReuse"
     
     
-    var items: [Item] = []
+    var items = [Item]()
+    
+    //NSCODER :
+    let dataFilePath:URL? = {
+        let url = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent("Items.plist")
+        return url
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,20 +43,49 @@ class ViewController: UIViewController {
             textField.placeholder = "Digite"
         }
         
+        
         alert.addAction(UIAlertAction(title: "Salvar", style: .default, handler: { (alert) in
-            let name = textField.text ?? ""
+            guard let name = textField.text else { return }
             let newItem = Item(name: name, done: false)
-            self.loadDatas(newItem)
+            self.save(item: newItem)
+            self.loadDatas()
         }))
         alert.addAction(UIAlertAction(title: "Cancelar", style: .cancel))
         self.present(alert, animated: true)
     }
     
-    func loadDatas(_ item: Item? = nil) {
-        if let item = item {
-            self.items.append(item)
+    func save(item: Item) {
+        self.items.append(item)
+        do {
+            let data = try PropertyListEncoder().encode(self.items)
+            try data.write(to: self.dataFilePath!)
+        } catch {
+            print("Error ao salvar Item")
         }
-        self.tableView.reloadData()        
+    }
+    
+    func loadDatas(with name: String? = nil) {
+        if let data = try? Data(contentsOf: self.dataFilePath!) {
+            do {
+                self.items = try PropertyListDecoder().decode([Item].self, from: data)
+                if let namePredicate = name {
+                    self.items = self.items.filter {$0.name.contains(namePredicate)}
+                }
+                self.items.sort { $0.name < $1.name || ($0.done && !$1.done) }
+            } catch {
+                print("Load Datas ok.")
+            }
+        }
+        self.tableView.reloadData()
+    }
+    
+    func updateItems() {
+        do {
+            let data = try PropertyListEncoder().encode(self.items)
+            try data.write(to: self.dataFilePath!)
+        } catch {
+            print("Error ao salvar Item")
+        }
     }
     
 }
@@ -69,15 +104,22 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.performBatchUpdates({
-            var item = self.items[indexPath.row]
-            item.done = !item.done
-            self.items[indexPath.row] = item
-        })
-        tableView.reloadRows(at: [indexPath], with: .left)
+        var item = self.items[indexPath.row]
+        item.done = !item.done
+        self.items[indexPath.row] = item
+        self.updateItems()
+        self.loadDatas()
     }
 }
 
 extension ViewController: UISearchBarDelegate {
     
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if searchBar.text?.count == 0 {
+            searchBar.resignFirstResponder()
+            loadDatas()
+        } else if let name = searchBar.text {
+            loadDatas(with: name)
+        }
+    }
 }
