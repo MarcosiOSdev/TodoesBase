@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreData
 
 class ViewController: UIViewController {
 
@@ -50,13 +51,24 @@ class ViewController: UIViewController {
         self.present(alert, animated: true)
     }
     
-    func loadDatas() {
+    func loadDatas(request: NSFetchRequest<Item>? = nil) {
         do {
-            self.items = try stack.managedContext.fetch(Item.fetchRequest())
-            self.tableView.reloadData()
+            let itemRequest:NSFetchRequest = request ?? Item.fetchRequest()
+            let nameSort = NSSortDescriptor(key: "name", ascending: true)
+            let checkedSort = NSSortDescriptor(key: "done", ascending: false)
+            itemRequest.sortDescriptors = [checkedSort, nameSort]
+            self.items = try stack.managedContext.fetch(itemRequest)
         } catch {
             print("Error on ViewDidLoad on Load of Items")
         }
+        self.tableView.reloadData()
+    }
+    
+    func loadDatas(with name: String) {
+        let request: NSFetchRequest = Item.fetchRequest()
+        let predicateNamed = NSPredicate(format: "name CONTAINS[cd] %@", name)
+        request.predicate = predicateNamed
+        self.loadDatas(request: request)
     }
     
 }
@@ -86,5 +98,22 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
 }
 
 extension ViewController: UISearchBarDelegate {
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if searchBar.text?.count == 0 {
+            loadDatas()
+            DispatchQueue.main.async {
+                searchBar.resignFirstResponder()
+            }
+        } else if let name = searchBar.text {
+            loadDatas(with: name)
+        }
+        
+    }
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        if let name = searchBar.text {
+            loadDatas(with: name)
+        }
+    }
     
 }
