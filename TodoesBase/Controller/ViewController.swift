@@ -15,7 +15,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     private let cellID = "cellReuse"
     
-    let stack = CoreDataStack.shared
+    var stack: CoreDataStack!
     var category: Category?
     var items: [Item] = []
     
@@ -53,6 +53,7 @@ class ViewController: UIViewController {
         alert.addAction(UIAlertAction(title: "Cancelar", style: .cancel))
         self.present(alert, animated: true)
     }
+    
 }
 
 //MARK: - CoreData funcs
@@ -90,6 +91,7 @@ extension ViewController {
     }
 }
 
+
 extension ViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.items.count
@@ -109,7 +111,8 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
             item.done = !item.done
             stack.saveContext()
         })
-        tableView.reloadRows(at: [indexPath], with: .right)        
+        tableView.reloadRows(at: [indexPath], with: .left)
+        
     }
 }
 

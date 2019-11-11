@@ -86,7 +86,7 @@ class CategoryTableViewController: UITableViewController {
     //MARK: - Segues
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "goToItems" {
-            guard let viewController = segue.destination as? ItemsViewController else { return }
+            guard let viewController = segue.destination as? ViewController else { return }
             let category = categories[tableView.indexPathForSelectedRow!.row]
             viewController.category = category
             viewController.stack = self.coreDataStack
