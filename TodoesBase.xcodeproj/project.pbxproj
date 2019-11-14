@@ -37,9 +37,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+<<<<<<< HEAD
 		28AB1DC9236D0DF200D685EA /* DataMigrationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataMigrationManager.swift; sourceTree = "<group>"; };
 		28AB1DCB236D1A9100D685EA /* TodoesBase v3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "TodoesBase v3.xcdatamodel"; sourceTree = "<group>"; };
 		28AB1DCC236D1BD100D685EA /* Category+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Category+CoreDataProperties.swift"; sourceTree = "<group>"; };
+=======
+		28C01C22237CEB8D00FE4672 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+>>>>>>> 275d9a5... add readme.md
 		D855991E236A0AC1009F7618 /* TodoesBase.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TodoesBase.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D8559921236A0AC1009F7618 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D8559923236A0AC1009F7618 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -83,6 +87,7 @@
 		D8559915236A0AC1009F7618 = {
 			isa = PBXGroup;
 			children = (
+				28C01C22237CEB8D00FE4672 /* README.md */,
 				D8559920236A0AC1009F7618 /* TodoesBase */,
 				D8559938236A0AC5009F7618 /* TodoesBaseTests */,
 				D855991F236A0AC1009F7618 /* Products */,
