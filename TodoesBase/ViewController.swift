@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RealmSwift
 
 class ViewController: UIViewController {
 
@@ -14,6 +15,14 @@ class ViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     private let cellID = "cellReuse"
     
+    var realm: Realm? = {
+        do {
+            let realm = try Realm()
+            return realm
+        } catch {
+            return nil
+        }        
+    }()
     
     var items: [Item] = []
     
@@ -39,18 +48,27 @@ class ViewController: UIViewController {
         
         alert.addAction(UIAlertAction(title: "Salvar", style: .default, handler: { (alert) in
             let name = textField.text ?? ""
-            let newItem = Item(name: name, done: false)
+            let newItem = Item()
+            newItem.title = name
+            self.save(newItem)
             self.loadDatas(newItem)
         }))
         alert.addAction(UIAlertAction(title: "Cancelar", style: .cancel))
         self.present(alert, animated: true)
     }
     
-    func loadDatas(_ item: Item? = nil) {
-        if let item = item {
-            self.items.append(item)
-        }
+    func loadDatas() {
+        self.items = self.realm?.objects(Item.self)
         self.tableView.reloadData()        
+    }
+    func save(_ newItem: Item) {
+        do {
+            try realm?.write {
+                realm?.add(newItem)
+            }
+        } catch {
+           print("Error save newItem")
+        }
     }
     
 }
@@ -63,14 +81,14 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: self.cellID, for: indexPath)
         let item = items[indexPath.row]
-        cell.textLabel?.text = item.name
+        cell.textLabel?.text = item.title
         cell.accessoryType = item.done ? .checkmark : .none
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.performBatchUpdates({
-            var item = self.items[indexPath.row]
+            let item = self.items[indexPath.row]
             item.done = !item.done
             self.items[indexPath.row] = item
         })
