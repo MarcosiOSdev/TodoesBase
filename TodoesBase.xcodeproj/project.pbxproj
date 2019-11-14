@@ -35,6 +35,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		28C01C22237CEB8D00FE4672 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		D855991E236A0AC1009F7618 /* TodoesBase.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TodoesBase.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D8559921236A0AC1009F7618 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D8559923236A0AC1009F7618 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -78,6 +79,7 @@
 		D8559915236A0AC1009F7618 = {
 			isa = PBXGroup;
 			children = (
+				28C01C22237CEB8D00FE4672 /* README.md */,
 				D8559920236A0AC1009F7618 /* TodoesBase */,
 				D8559938236A0AC5009F7618 /* TodoesBaseTests */,
 				D855991F236A0AC1009F7618 /* Products */,
