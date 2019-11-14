@@ -38,9 +38,13 @@
 
 /* Begin PBXFileReference section */
 <<<<<<< HEAD
+<<<<<<< HEAD
 		28AB1DC9236D0DF200D685EA /* DataMigrationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataMigrationManager.swift; sourceTree = "<group>"; };
 		28AB1DCB236D1A9100D685EA /* TodoesBase v3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "TodoesBase v3.xcdatamodel"; sourceTree = "<group>"; };
 		28AB1DCC236D1BD100D685EA /* Category+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Category+CoreDataProperties.swift"; sourceTree = "<group>"; };
+=======
+		28C01C22237CEB8D00FE4672 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+>>>>>>> 275d9a5... add readme.md
 =======
 		28C01C22237CEB8D00FE4672 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 >>>>>>> 275d9a5... add readme.md
