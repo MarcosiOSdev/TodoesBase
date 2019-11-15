@@ -1,0 +1,8 @@
+.DS_Store
+*/.DS_Store
+
+*.xcworkspace
+Pods/
+
+
+TodoesBase.xcodeproj/project.xcworkspace/xcuserdata/marcosfelipesouza.xcuserdatad/UserInterfaceState.xcuserstate

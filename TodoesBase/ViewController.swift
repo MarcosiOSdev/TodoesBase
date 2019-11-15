@@ -51,15 +51,19 @@ class ViewController: UIViewController {
             let newItem = Item()
             newItem.title = name
             self.save(newItem)
-            self.loadDatas(newItem)
+            self.loadDatas()
         }))
         alert.addAction(UIAlertAction(title: "Cancelar", style: .cancel))
         self.present(alert, animated: true)
     }
-    
+}
+
+//MARK: - Functions Realm
+extension ViewController {
     func loadDatas() {
-        self.items = self.realm?.objects(Item.self)
-        self.tableView.reloadData()        
+        guard let results = self.realm?.objects(Item.self) else { return }
+        self.items = Array(results)
+        self.tableView.reloadData()
     }
     func save(_ newItem: Item) {
         do {
@@ -67,10 +71,14 @@ class ViewController: UIViewController {
                 realm?.add(newItem)
             }
         } catch {
-           print("Error save newItem")
+            print("Error save newItem")
         }
     }
-    
+    func loadData(with itemName: String) {
+        guard let results = realm?.objects(Item.self).filter("title CONTAINS %@", itemName) else { return }        
+        self.items = Array(results)
+        self.tableView.reloadData()
+    }
 }
 
 extension ViewController: UITableViewDataSource, UITableViewDelegate {
@@ -97,5 +105,7 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
 }
 
 extension ViewController: UISearchBarDelegate {
-    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        self.loadData(with: searchText)
+    }
 }
