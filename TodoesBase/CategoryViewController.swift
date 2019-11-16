@@ -102,7 +102,7 @@ extension CategoryViewController: UITableViewDelegate, UITableViewDataSource {
         let cell = UITableViewCell(style: .subtitle , reuseIdentifier: self.cellID)
         let category = self.categories[indexPath.row]
         cell.textLabel?.text = category.name
-        //cell.detailTextLabel?.text = "(\(category.items.count))"
+        cell.detailTextLabel?.text = "(\(category.items.count))"
         return cell
     }
     
