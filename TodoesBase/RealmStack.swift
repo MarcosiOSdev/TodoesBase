@@ -28,7 +28,7 @@ class RealmStack {
     
     var configuration: Realm.Configuration {
         let config = Realm.Configuration(schemaVersion: 1, migrationBlock: { (migration, oldVersion) in
-            if oldVersion < 2 {
+            if oldVersion < 1 {
                 print("==== Migration 1 === ")
                 self.zeroToOne(migration, oldVersion)
             }
