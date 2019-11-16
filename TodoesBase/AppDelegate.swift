@@ -13,11 +13,13 @@ import RealmSwift
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
+    var realm: Realm?
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         print(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask))
-        print(Realm.Configuration.defaultConfiguration.fileURL?.absoluteString)
+        self.realm = MainRealm.shared.realm
         return true
     }
+    
+    
 }
 

@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		269D00F0327C932D89122DF7 /* Pods_TodoesBase.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B252583F00E60C2711920FC /* Pods_TodoesBase.framework */; };
+		289B3EA6237F6B9400CC557F /* CategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 289B3EA5237F6B9400CC557F /* CategoryViewController.swift */; };
+		28B3FAB1237E4F350059383A /* MainRealm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28B3FAB0237E4F350059383A /* MainRealm.swift */; };
+		28B3FAB3237E52210059383A /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28B3FAB2237E52210059383A /* Category.swift */; };
 		7862AE4CC4B6B1FF3F5421C6 /* Pods_TodoesBaseTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC58AA3EDF218EB1F48245E3 /* Pods_TodoesBaseTests.framework */; };
 		D8559922236A0AC1009F7618 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8559921236A0AC1009F7618 /* AppDelegate.swift */; };
 		D8559924236A0AC1009F7618 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8559923236A0AC1009F7618 /* ViewController.swift */; };
@@ -29,6 +32,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		289B3EA5237F6B9400CC557F /* CategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewController.swift; sourceTree = "<group>"; };
+		28B3FAB0237E4F350059383A /* MainRealm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainRealm.swift; sourceTree = "<group>"; };
+		28B3FAB2237E52210059383A /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
 		28C01C22237CEB8D00FE4672 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		469026EF3B974F69C512C1BD /* Pods-TodoesBaseTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TodoesBaseTests.debug.xcconfig"; path = "Target Support Files/Pods-TodoesBaseTests/Pods-TodoesBaseTests.debug.xcconfig"; sourceTree = "<group>"; };
 		5B252583F00E60C2711920FC /* Pods_TodoesBase.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TodoesBase.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -111,6 +117,9 @@
 				D855992D236A0AC5009F7618 /* LaunchScreen.storyboard */,
 				D8559930236A0AC5009F7618 /* Info.plist */,
 				D8BB1434236B23AB003F5D4A /* Item.swift */,
+				28B3FAB0237E4F350059383A /* MainRealm.swift */,
+				28B3FAB2237E52210059383A /* Category.swift */,
+				289B3EA5237F6B9400CC557F /* CategoryViewController.swift */,
 			);
 			path = TodoesBase;
 			sourceTree = "<group>";
@@ -301,8 +310,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				28B3FAB1237E4F350059383A /* MainRealm.swift in Sources */,
+				28B3FAB3237E52210059383A /* Category.swift in Sources */,
 				D8559924236A0AC1009F7618 /* ViewController.swift in Sources */,
 				D8BB1435236B23AB003F5D4A /* Item.swift in Sources */,
+				289B3EA6237F6B9400CC557F /* CategoryViewController.swift in Sources */,
 				D8559922236A0AC1009F7618 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

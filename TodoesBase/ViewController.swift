@@ -23,14 +23,16 @@ class ViewController: UIViewController {
             return nil
         }        
     }()
-    
-    var items: [Item] = []
+    var categorySelected: Category?
+    var items: Results<Item>?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         searchBar.delegate = self
         tableView.dataSource = self
         tableView.delegate = self
+        
+        self.title = categorySelected?.name
         loadDatas()
     }
     
@@ -47,11 +49,11 @@ class ViewController: UIViewController {
         }
         
         alert.addAction(UIAlertAction(title: "Salvar", style: .default, handler: { (alert) in
-            let name = textField.text ?? ""
+            guard let name = textField.text else { return }
             let newItem = Item()
             newItem.title = name
             self.save(newItem)
-            self.loadDatas()
+            self.tableView.reloadData()
         }))
         alert.addAction(UIAlertAction(title: "Cancelar", style: .cancel))
         self.present(alert, animated: true)
@@ -61,51 +63,78 @@ class ViewController: UIViewController {
 //MARK: - Functions Realm
 extension ViewController {
     func loadDatas() {
-        guard let results = self.realm?.objects(Item.self) else { return }
-        self.items = Array(results)
-        self.tableView.reloadData()
+        guard let category = categorySelected else { return }
+        
+        if let results = self.realm?
+            .objects(Category.self)
+            .filter("id == %@", category.id)
+            .first?
+            .items
+            .sorted(by: [SortDescriptor(keyPath: "done", ascending: false),
+                         SortDescriptor(keyPath: "title", ascending: true)]) {
+            
+            self.items = results
+            self.tableView.reloadData()
+        }
     }
     func save(_ newItem: Item) {
+        guard let category = self.categorySelected else { return }
+        
         do {
             try realm?.write {
-                realm?.add(newItem)
+                category.items.append(newItem)
+                realm?.add(category)
             }
         } catch {
             print("Error save newItem")
         }
     }
     func loadData(with itemName: String) {
-        guard let results = realm?.objects(Item.self).filter("title CONTAINS %@", itemName) else { return }        
-        self.items = Array(results)
+        guard let category = self.categorySelected else { return }
+        if let results = self.realm?
+            .objects(Item.self)
+            .filter("title CONTAINS[cd] %@ AND ANY category.id == %@", itemName, category.id)            
+            .sorted(by: [SortDescriptor(keyPath: "done", ascending: false),
+                         SortDescriptor(keyPath: "title", ascending: true)]) {
+            self.items = results
+        }
+        
         self.tableView.reloadData()
     }
 }
 
 extension ViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.items.count
+        return self.items?.count ?? 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: self.cellID, for: indexPath)
-        let item = items[indexPath.row]
-        cell.textLabel?.text = item.title
-        cell.accessoryType = item.done ? .checkmark : .none
+        if let item = items?[indexPath.row] {
+            cell.textLabel?.text = item.title
+            cell.accessoryType = item.done ? .checkmark : .none
+        } else {
+            cell.textLabel?.text = "Não tem itens"
+        }
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.performBatchUpdates({
-            let item = self.items[indexPath.row]
-            item.done = !item.done
-            self.items[indexPath.row] = item
-        })
-        tableView.reloadRows(at: [indexPath], with: .left)
+        if let item = self.items?[indexPath.row] {
+            do {
+                try realm?.write {
+                    item.done = !item.done
+                }
+            } catch {
+                print("Error ao editar o done do Item")
+            }
+            self.tableView.reloadData()
+        }
     }
 }
 
 extension ViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        self.loadData(with: searchText)
+        searchText == "" ? self.loadDatas() : self.loadData(with: searchText)
     }
 }
