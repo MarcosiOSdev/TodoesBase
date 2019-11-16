@@ -47,6 +47,7 @@ class ViewController: UIViewController {
             guard let name = textField.text else { return }
             let newItem = Item()
             newItem.title = name
+            newItem.createdDate = Date()
             self.save(newItem)
             self.tableView.reloadData()
         }))

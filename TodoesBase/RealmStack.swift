@@ -27,10 +27,14 @@ class RealmStack {
     }
     
     var configuration: Realm.Configuration {
-        let config = Realm.Configuration(schemaVersion: 1, migrationBlock: { (migration, oldVersion) in
+        let config = Realm.Configuration(schemaVersion: 2, migrationBlock: { (migration, oldVersion) in
             if oldVersion < 1 {
                 print("==== Migration 1 === ")
                 self.zeroToOne(migration, oldVersion)
+            }
+            if oldVersion < 2 {
+                print("==== Migration 2 === ")
+                self.oneToTwo(migration, oldVersion)
             }
         })
         return config
@@ -48,6 +52,11 @@ extension RealmStack {
             if let items = category["items"] as? List<MigrationObject>, let item = newObject {
                 items.append(item)
             }
+        }
+    }
+    private func oneToTwo(_ migration: Migration, _ oldSchemaVersion: UInt64) -> Void {
+        migration.enumerateObjects(ofType: Item.className()) { oldObject, newObject in
+            newObject?["id"] = NSUUID().uuidString
         }
     }
 }

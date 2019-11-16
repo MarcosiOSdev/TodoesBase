@@ -10,7 +10,13 @@ import Foundation
 import RealmSwift
 
 class Item: Object {
+    @objc dynamic var id: String = NSUUID().uuidString
     @objc dynamic var title: String = ""
     @objc dynamic var done: Bool = false
+    @objc dynamic var createdDate: Date?
     var category = LinkingObjects(fromType: Category.self, property: "items")
+    
+    override class func primaryKey() -> String {
+        return "id"
+    }
 }
