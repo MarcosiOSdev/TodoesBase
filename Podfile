@@ -6,7 +6,7 @@ target 'TodoesBase' do
   use_frameworks!
 
   
-  pod 'RealmSwift'#, '3.0.8'
+  pod 'RealmSwift', '~> 4.1.0'
 
   target 'TodoesBaseTests' do
     inherit! :search_paths

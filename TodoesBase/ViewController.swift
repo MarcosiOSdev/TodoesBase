@@ -58,31 +58,30 @@ class ViewController: UIViewController {
 //MARK: - Functions Realm
 extension ViewController {
     func loadDatas() {
-//        guard let category = categorySelected else { return }
-//
-//        if let results = self.realm?
-//            .objects(Category.self)
-//            .filter("id == %@", category.id)
-//            .first?
-//            .items
-//            .sorted(by: [SortDescriptor(keyPath: "done", ascending: false),
-//                         SortDescriptor(keyPath: "title", ascending: true)]) {
-//
-//            self.items = results
-//            self.tableView.reloadData()
-//        }
+        guard let category = categorySelected else { return }
+
+        self.items = self.realm
+            .objects(Category.self)
+            .filter("id == %@", category.id)
+            .first?
+            .items
+            .sorted(by: [SortDescriptor(keyPath: "done", ascending: false),
+                         SortDescriptor(keyPath: "title", ascending: true)])
+        
+        self.tableView.reloadData()
+        
     }
     func save(_ newItem: Item) {
-//        guard let category = self.categorySelected else { return }
-//        
-//        do {
-//            try realm?.write {
-//                category.items.append(newItem)
-//                realm?.add(category)
-//            }
-//        } catch {
-//            print("Error save newItem")
-//        }
+        guard let category = self.categorySelected else { return }
+        
+        do {
+            try realm.write {
+                category.items.append(newItem)
+                realm.add(category)
+            }
+        } catch {
+            print("Error save newItem")
+        }
     }
     func loadData(with itemName: String) {
         guard let category = self.categorySelected else { return }

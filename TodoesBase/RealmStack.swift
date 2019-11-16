@@ -44,8 +44,12 @@ class RealmStack {
 extension RealmStack {
     
     private func zeroToOne(_ migration: Migration, _ oldSchemaVersion: UInt64) -> Void {
+        let category = migration.create(Category.className())
+        category["name"] = "No Category"
         migration.enumerateObjects(ofType: Item.className()) { oldObject, newObject in
-           
+            if let items = category["items"] as? List<MigrationObject>, let item = oldObject {
+                items.append(item)
+            }
         }
     }
 }
