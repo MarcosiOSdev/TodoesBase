@@ -11,7 +11,7 @@ import RealmSwift
 class Category: Object {
     @objc dynamic var id = NSUUID().uuidString
     @objc dynamic var name: String = ""
-    let items = List<Item>()
+    //let items = List<Item>()
     
     override class func primaryKey() -> String {
         return "id"

@@ -55,7 +55,7 @@ extension CategoryViewController {
 //MARK: - Realm Funcs
 extension CategoryViewController {
     private func loadDatas() {
-        let realm = MainRealm.shared.realm
+        let realm = RealmStack.shared.realm
         let result = realm.objects(Category.self)
         self.categories = Array(result)
         self.tableView.reloadData()
@@ -63,7 +63,7 @@ extension CategoryViewController {
     
     private func save(category: Category) {
         do {
-            let realm = MainRealm.shared.realm
+            let realm = RealmStack.shared.realm
             try realm.write {
                 realm.add(category)
             }
@@ -102,7 +102,7 @@ extension CategoryViewController: UITableViewDelegate, UITableViewDataSource {
         let cell = UITableViewCell(style: .subtitle , reuseIdentifier: self.cellID)
         let category = self.categories[indexPath.row]
         cell.textLabel?.text = category.name
-        cell.detailTextLabel?.text = "(\(category.items.count))"
+        //cell.detailTextLabel?.text = "(\(category.items.count))"
         return cell
     }
     

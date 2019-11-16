@@ -15,14 +15,9 @@ class ViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     private let cellID = "cellReuse"
     
-    var realm: Realm? = {
-        do {
-            let realm = try Realm()
-            return realm
-        } catch {
-            return nil
-        }        
-    }()
+    var realm: Realm {
+        return RealmStack.shared.realm
+    }
     var categorySelected: Category?
     var items: Results<Item>?
     
@@ -63,41 +58,39 @@ class ViewController: UIViewController {
 //MARK: - Functions Realm
 extension ViewController {
     func loadDatas() {
-        guard let category = categorySelected else { return }
-        
-        if let results = self.realm?
-            .objects(Category.self)
-            .filter("id == %@", category.id)
-            .first?
-            .items
-            .sorted(by: [SortDescriptor(keyPath: "done", ascending: false),
-                         SortDescriptor(keyPath: "title", ascending: true)]) {
-            
-            self.items = results
-            self.tableView.reloadData()
-        }
+//        guard let category = categorySelected else { return }
+//
+//        if let results = self.realm?
+//            .objects(Category.self)
+//            .filter("id == %@", category.id)
+//            .first?
+//            .items
+//            .sorted(by: [SortDescriptor(keyPath: "done", ascending: false),
+//                         SortDescriptor(keyPath: "title", ascending: true)]) {
+//
+//            self.items = results
+//            self.tableView.reloadData()
+//        }
     }
     func save(_ newItem: Item) {
-        guard let category = self.categorySelected else { return }
-        
-        do {
-            try realm?.write {
-                category.items.append(newItem)
-                realm?.add(category)
-            }
-        } catch {
-            print("Error save newItem")
-        }
+//        guard let category = self.categorySelected else { return }
+//        
+//        do {
+//            try realm?.write {
+//                category.items.append(newItem)
+//                realm?.add(category)
+//            }
+//        } catch {
+//            print("Error save newItem")
+//        }
     }
     func loadData(with itemName: String) {
         guard let category = self.categorySelected else { return }
-        if let results = self.realm?
+        self.items = self.realm
             .objects(Item.self)
             .filter("title CONTAINS[cd] %@ AND ANY category.id == %@", itemName, category.id)            
             .sorted(by: [SortDescriptor(keyPath: "done", ascending: false),
-                         SortDescriptor(keyPath: "title", ascending: true)]) {
-            self.items = results
-        }
+                         SortDescriptor(keyPath: "title", ascending: true)])
         
         self.tableView.reloadData()
     }
@@ -122,7 +115,7 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let item = self.items?[indexPath.row] {
             do {
-                try realm?.write {
+                try realm.write {
                     item.done = !item.done
                 }
             } catch {

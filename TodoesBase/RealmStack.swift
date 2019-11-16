@@ -8,7 +8,7 @@
 
 import RealmSwift
 
-class MainRealm {
+class RealmStack {
     private init() {
         Realm.Configuration.defaultConfiguration = configuration
         initRealm()
@@ -16,7 +16,7 @@ class MainRealm {
             print(absolutePath)
         }
     }
-    static let shared = MainRealm()
+    static let shared = RealmStack()
     var realm: Realm {
         do {
             let realm = try Realm()
@@ -41,18 +41,11 @@ class MainRealm {
 }
 
 //MARK: - Migrations
-extension MainRealm {
+extension RealmStack {
     
     private func zeroToOne(_ migration: Migration, _ oldSchemaVersion: UInt64) -> Void {
-        let category = Category()
-        category.name = "No Category"        
-        
         migration.enumerateObjects(ofType: Item.className()) { oldObject, newObject in
-            let item = Item()
-            item.title = newObject?["title"] as! String
-            item.done = newObject?["done"] as! Bool
-            category.items.append(item)
+           
         }
-        print("and migration")
     }
 }
