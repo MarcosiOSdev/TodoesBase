@@ -71,6 +71,21 @@ extension CategoryViewController {
             print(error.localizedDescription)
             print("Error in SaveCategory")
         }
+        self.tableView.reloadData()
+    }
+    private func delete(at indexPath: IndexPath) {
+        let category = self.categories[indexPath.row]
+        do {
+            let realm = RealmStack.shared.realm
+            try realm.write {
+                realm.delete(category, cascading: true)
+                self.categories.remove(at: indexPath.row)
+                self.tableView.deleteRows(at: [indexPath], with: .fade)
+            }
+        } catch {
+            print(error.localizedDescription)
+            print("Error in Delete Category")
+        }
         
     }
 }
@@ -81,6 +96,7 @@ extension CategoryViewController {
         self.tableView.dataSource = self
         self.tableView.delegate = self
         self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellID)
+        self.tableView.rowHeight = CGFloat(50)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -108,5 +124,33 @@ extension CategoryViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.performSegue(withIdentifier: "goToItem", sender: nil)
+    }
+    
+    @available(iOS 11.0, *)
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+
+        let action = UIContextualAction(style: .normal, title: "Files", handler: { (action,view,completionHandler ) in
+            self.delete(at: indexPath)
+            completionHandler(true)
+        })
+        action.image = UIImage(named: "trash-circle")
+        action.backgroundColor = .red
+        let configuration = UISwipeActionsConfiguration(actions: [action])
+        configuration.performsFirstActionWithFullSwipe = false
+        return configuration
+    }
+    
+    func tableView(_ tableView: UITableView,
+                           editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+            return .none
+    }
+    
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        let accessButton = UITableViewRowAction(style: .normal, title: "") { action, index in
+            self.delete(at: indexPath)
+        }
+        accessButton.backgroundColor = UIColor(patternImage: UIImage(named: "trash-circle")!)
+        
+        return [accessButton]
     }
 }
